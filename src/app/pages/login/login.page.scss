@@ -1,0 +1,35 @@
+ion-card-content {
+    margin-top: 50px;
+    // padding-bottom: 50px;
+}
+
+ion-header {
+    z-index: 0;
+}
+
+ion-item-divider {
+    border: 0px;
+    text-align: center;
+
+    ion-label {
+        margin: 0 auto;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: var(--ion-text-color);
+}
+
+a:hover {
+    color: var(--ion-color-custom-shade);
+}
+
+.signup {
+    color: var(--ion-color-custom);
+    font-size: medium;
+}
+
+.header-ios ion-toolbar:last-of-type {
+    --border-width: 0 0 0px;
+}

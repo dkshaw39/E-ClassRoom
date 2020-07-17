@@ -1,0 +1,35 @@
+<ion-content>
+  <ion-list *ngIf="notes.length === 0">
+    <ion-item lines="none">
+      <ion-label >There is no record</ion-label>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="notes.length !== 0">
+  <ion-list-header>
+    <ion-label>All</ion-label>
+    <ion-buttons>
+    <ion-button color="blackwhite">
+      <ion-icon slot="icon-only" name="filter-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-list-header>
+
+  <ion-virtual-scroll [items]="notes">
+    <ion-item *virtualItem="let item">
+          <!-- <img src="./avatar-finn.png"> -->
+          <ion-icon slot="start" name="reader-outline"></ion-icon>
+          <ion-note *ngIf="item.status === 'New'" slot="end" color="success">{{ item.status }}</ion-note>
+          <ion-note *ngIf="item.status !== 'New'" slot="end" color="warning">{{ item.status }}</ion-note>
+        <ion-label>
+          <h2>{{ item.name }}</h2>
+          <p>Uploaded: 26th-Jun-20</p>
+        </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+</div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="blackwhite" (click)="addItem()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

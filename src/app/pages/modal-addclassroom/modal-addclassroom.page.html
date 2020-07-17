@@ -1,0 +1,63 @@
+<ion-toolbar>
+  <ion-buttons slot="end" class="ion-text-end">
+    <ion-button (click)="closeModal()">
+      <ion-icon name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+<form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+  <ion-grid fixed>
+    <ion-row class="ion-padding-bottom">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center ion-text-uppercase">
+        <h6>ADD Classroom</h6>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">Class</ion-label>
+          <ion-input required formControlName="class" type="text"></ion-input>
+        </ion-item>
+        <!-- <ion-item *ngIf="class.invalid && class.touched" lines="none">
+          <ion-text color="danger" class="form-error">
+            Not a valid class number.
+          </ion-text>
+        </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">Section / Branch</ion-label>
+          <ion-input required formControlName="section" type="text"></ion-input>
+        </ion-item>
+        <!-- <ion-item *ngIf="section.invalid && section.touched" lines="none">
+        <ion-text color="danger" class="form-error">
+          Not a valid section number.
+        </ion-text>
+      </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">Class Code</ion-label>
+          <ion-input required formControlName="classcode" type="text"></ion-input>
+        </ion-item>
+        <!-- <ion-item *ngIf="classcode.invalid && classcode.touched" lines="none">
+        <ion-text color="danger" class="form-error">
+          Not a valid classcode number.
+        </ion-text>
+      </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-top">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-button [disabled]="classForm.invalid" color="blackwhite" type="submit" expand="block" shape="round">
+          Add Class
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</form>

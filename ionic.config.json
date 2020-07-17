@@ -1,0 +1,7 @@
+{
+  "name": "E-ClassRoom",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

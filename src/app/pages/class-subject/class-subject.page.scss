@@ -1,0 +1,13 @@
+*{
+//     --super-tabs-toolbar-background: var(--ion-color-blackwhite);
+//   --st-indicator-color: var(--ion-color-blackwhite-contrast);
+//   --st-base-color-inactive: rgba(255, 255, 255, 0.6);
+//   --st-base-color-active: var(--ion-color-blackwhite-contrast);
+--super-tabs-toolbar-background: var(--ion-color-blackwhite-contrast);
+--st-indicator-color: var(--ion-color-blackwhite);
+--st-base-color-inactive: var(--ion-color-blackwhite-tint);
+--st-base-color-active: var(--ion-color-blackwhite-shade);
+}
+super-tabs-toolbar{
+    color: #fff;
+}

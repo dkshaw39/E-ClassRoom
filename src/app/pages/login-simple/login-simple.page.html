@@ -1,0 +1,49 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <ion-grid fixed>
+    <ion-row class="ion-padding-bottom">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center ion-text-uppercase">
+        <h6>Classroom</h6>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">Mobile Number</ion-label>
+          <ion-input required formControlName="username" type="number"></ion-input>
+        </ion-item>
+        <!-- <ion-item *ngIf="mobile.invalid && mobile.touched" lines="none">
+          <ion-text color="danger" class="form-error">
+            Not a valid mobile number.
+          </ion-text>
+        </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-bottom">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input required formControlName="password" [type]="passwordType" clearOnEdit="false"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <!-- <ion-item *ngIf="password.invalid && password.touched" lines="none">
+          <ion-text color="danger" class="form-error">
+            Not a valid password address.
+          </ion-text>
+        </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-top">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <!-- [disabled]="loginForm.invalid" -->
+        <ion-button color="blackwhite" type="submit"  expand="block" shape="round">
+          Login
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</form>
+
+<div class="ion-text-center signup-row">
+  <a [routerLink]="['signup']" routerDirection="forward" class="ion-no-padding" class="signup">Not a member?<b> Create an Account</b></a>
+</div>

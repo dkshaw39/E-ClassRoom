@@ -1,0 +1,13 @@
+ion-slides{
+    height: 100%;
+    --bullet-background: var(--ion-color-blackwhite-tint);
+    --bullet-background-active: var(--ion-color-blackwhite-shade);
+}
+form {
+    width: 100%;
+    margin: auto 0;
+}
+.no-titlebar-back-button{
+    margin: 2rem 0 0 1rem;
+    color: #000;
+}

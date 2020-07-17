@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-card class="ion-padding">
+      <ion-card-header class="ion-no-padding">
+        <ion-item lines="none" style="float: right;" class="ion-no-padding">
+          <a routerLink="/signup" slot="end" class="ion-no-padding" class="signup">Sign Up</a>
+        </ion-item>
+        <ion-card-title>Welcome,</ion-card-title>
+        <ion-card-subtitle>Sign in to continue...</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="ion-no-padding">
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input required type="email"></ion-input>
+        </ion-item>
+        <ion-item class="ion-no-padding">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input required type="password"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <a routerLink="/forget-password" slot="end" class="ion-no-padding" style="font-size: small;">Forget Password?</a>
+        </ion-item>
+        <ion-button class="ion-no-padding" expand="block" color="custom">Login</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+  <ion-item class="ion-no-padding" lines="none">
+    <ion-label size="small" style="text-align: center;">-OR-</ion-label>
+  </ion-item>
+  <ion-button class="ion-padding" expand="block" fill="none">Sign In with Facebook</ion-button>
+</ion-content>

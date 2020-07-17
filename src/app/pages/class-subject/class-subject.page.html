@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{ cls.classname }} {{ sub }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<super-tabs >
+  <super-tabs-toolbar slot="top">
+    <super-tab-button>
+      <ion-icon name="clipboard-outline"></ion-icon>
+      <ion-label>Assignments</ion-label>    
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="reader-outline"></ion-icon>
+      <ion-label>Notes</ion-label>    
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="school-outline"></ion-icon>
+      <ion-label>Exams</ion-label>    
+    </super-tab-button>
+  </super-tabs-toolbar>
+
+  <super-tabs-container>
+    <super-tab>
+      <ion-content>
+        <ion-nav animated="true" [root]="assignmenthistory" swipeGesture="true"></ion-nav>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        <ion-nav animated="true" [root]="noteshistory" swipeGesture="true"></ion-nav>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content>
+        <ion-nav animated="true" [root]="examhistory" swipeGesture="true"></ion-nav>
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>
