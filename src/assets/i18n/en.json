@@ -1,0 +1,42 @@
+{
+    "LOADING": {
+        "Logging": "logging",
+        "Generating_OTP": "Generating OTP",
+        "Signing": "Signing"
+    },
+    "ALERT": {
+        "Error": "Error",
+        "Connection_Error" : "Connection Error",
+        "Not_register_user": "You are not a registered user, please Sign up",
+        "User_password_incorrect": "Username / Password Incorrect"
+    },
+    "APP": {
+        "Setting": "Setting",
+        "Logout": "Logout",
+        "Change_Language": "Change Language"
+    },
+    "LOGIN": {
+        "Classroom": "Classroom",
+        "Mobile_Number": "Mobile Number",
+        "Password": "Password",
+        "Login": "Login",
+        "Not_a_member": "Not a member",
+        "Create_an_Account": "Create an Account",
+        "Choose_Language": "Choose Language"
+    },
+    "SIGNUP": {
+        "Sign_Up": "Sign Up",
+        "Enter_Mobile_Number": "Enter Mobile Number",
+        "Request_OTP": "Request OTP",
+        "Create_an_Account": "Create an Account",
+        "Mob:": "Mob:",
+        "OTP": "OTP",
+        "Email": "Email",
+        "Password": "Password",
+        "Retype_Password": "Retype Password",
+        "Create_Account": "Create Account"
+    },
+    "CLASSROOM": {
+        "Classroom": "Classroom"
+    }
+}

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ClassroomsPageRoutingModule } from './classrooms-routing.module';
 
 import { ClassroomsPage } from './classrooms.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClassroomsPageRoutingModule
+    ClassroomsPageRoutingModule,
+    TranslateModule
   ],
   declarations: [ClassroomsPage]
 })

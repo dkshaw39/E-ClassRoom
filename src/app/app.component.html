@@ -1,22 +1,41 @@
 <ion-app>
   <ion-menu side="start" menu_id="m1">
-    <ion-header>
+    <!-- <ion-header>
       <ion-toolbar>
-        <ion-title>Welcome {{ this.authenticate.userID}}</ion-title>
+        <ion-title>{{ this.authenticate.userID}}</ion-title>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
     <ion-content>
+      
+        <ion-card class="menu-profile">
+          <img src="https://toppng.com/uploads/preview/businesswoman-blank-profile-picture-female-11563049297axzpapjulw.png" />
+          <ion-card-header>
+            <ion-card-subtitle>{{ this.authenticate.userID}}</ion-card-subtitle>
+            <ion-card-title>Deepak Kumar Shaw</ion-card-title>
+          </ion-card-header>
+        </ion-card>
       <ion-list>
         <ion-menu-toggle>
           <ion-item lines="none">
             <ion-icon slot="start" name="settings-outline"></ion-icon>
-            <ion-label>Setting</ion-label>
+            <ion-label>{{'APP.Setting' | translate}}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none">
+            <ion-icon slot="start" name="language-outline" disabled></ion-icon>
+            <ion-label>{{'APP.Change_Language' | translate}}</ion-label>
+            <ion-select value="{{currentLanguage}}" (ionChange)="changeLanguage($event)">
+              <ion-select-option *ngFor="let lang of allLanguages" value="{{lang.value}}">
+                {{lang.text}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
           <ion-item lines="none" (click)="logout_btn()" button>
             <ion-icon slot="start" name="log-out-outline"></ion-icon>
-            <ion-label>Logout</ion-label>
+            <ion-label>{{'APP.Logout' | translate}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

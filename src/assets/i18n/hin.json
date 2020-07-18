@@ -1,0 +1,43 @@
+{
+    "LOADING": {
+        "Logging": "लॉग इन",
+        "Generating_OTP": "ओटीपी जनरेट कर रहा है",
+        "Signing": "साइन अप"
+    },
+    "ALERT": {
+        "Error": "त्रुटि",
+        "Connection_Error" : "कनेक्शन त्रुटि",
+        "Not_register_user": "उपयोगकर्ता रजिस्टर नहीं",
+        "User_password_incorrect": "उपयोगकर्ता नाम / पासवर्ड गलत"
+    },
+    "APP": {
+        "Setting": "सेट करें",
+        "Logout": "लॉग आउट",
+        "Change_Language": "भाषा बदलो",
+        "Classroom": "क्लासरूम"
+    },
+    "LOGIN": {
+        "Classroom": "क्लासरूम",
+        "Mobile_Number": "मोबाइल नंबर",
+        "Password": "कुंजिका",
+        "Login": "लॉग इन",
+        "Not_a_member": "सदस्य नहीं है",
+        "Create_an_Account": "खाता बनाएं",
+        "Choose_Language": "भाषा चुनें"
+    },
+    "SIGNUP": {
+        "Sign_Up": "साइन अप करें",
+        "Enter_Mobile_Number": "मोबाइल नंबर दर्ज करें",
+        "Request_OTP": "OTP का अनुरोध करें",
+        "Create_an_Account": "खाता बनाएं",
+        "Mob:": "मोबाइल:",
+        "OTP": "OTP",
+        "Email": "ईमेल",
+        "Password": "कुंजिका",
+        "Retype_Password": "पासवर्ड फिर से लिखें",
+        "Create_Account": "खाता बनाएं"
+    },
+    "CLASSROOM": {
+        "Classroom": "क्लासरूम"
+    }
+}

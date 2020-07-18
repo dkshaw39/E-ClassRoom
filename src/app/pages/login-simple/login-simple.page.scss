@@ -6,3 +6,14 @@ h6{
     letter-spacing: .4rem;
 }
 
+.lang-class{
+    display: block;
+    text-align: right;
+    margin: 5% 2%;
+    p {
+        display: inline;
+    }
+    ion-select {
+        display: inline-flex;
+    }
+}

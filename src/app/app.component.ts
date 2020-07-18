@@ -1,3 +1,4 @@
+import { LanguageService } from './services/language.service';
 import { Component,  ViewChild} from '@angular/core';
 
 import {  Platform,  AlertController,  IonRouterOutlet } from '@ionic/angular';
@@ -17,13 +18,17 @@ export class AppComponent {
     static: false
   }) routerOutlet: IonRouterOutlet;
 
+  allLanguages = [];
+  currentLanguage = '';
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private alertController: AlertController,
     private router: Router,
-    public authenticate: AuthenticateService
+    public authenticate: AuthenticateService,
+    private languageService: LanguageService
   ) {
     this.initializeApp();
   }
@@ -70,7 +75,15 @@ export class AppComponent {
         this.router.navigate(['user']);
       }
     });
+    this.languageService.setInitialLanguage();
+    this.allLanguages = this.languageService.getLanguage();
+    this.languageService.getCurrentLanguage().subscribe( lang => this.currentLanguage = lang);
   }
+
+  changeLanguage(event){
+    this.languageService.setLanguage(event.target.value);
+  }
+
   logout_btn(){
     this.authenticate.logout();
   }

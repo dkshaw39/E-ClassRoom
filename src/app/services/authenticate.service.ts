@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+import { EncryptDataService } from './encrypt-data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Platform, AlertController, LoadingController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
@@ -23,19 +25,20 @@ export class AuthenticateService {
   };
 
   constructor(private storage: Storage, private platform: Platform, private http: HttpClient,
-              private alrtController: AlertController, private loadingController: LoadingController) {
+              private alrtController: AlertController, private loadingController: LoadingController,
+              private encryptDataService: EncryptDataService, private translate: TranslateService) {
      platform.ready().then(() => {
       this.autoLogin();
     });
   }
 
   autoLogin() {
-    this.storage.get(TOKEN_KEY).then(token => {
-      if ( token && token.expires_in > 0 && token.token_type === 'bearer') {
+    this.storage.get(TOKEN_KEY).then(encryptToken => {
+      if ( encryptToken ) {
+        const token = this.encryptDataService.decrypt(encryptToken);
         if (new Date() <= new Date(token['.expires'])) {
           this.userAuthenticationState.next(true);
           this.userID = token.userName;
-          console.log(this.userID);
         }
       } else {
         this.logout();
@@ -45,7 +48,7 @@ export class AuthenticateService {
 
   requestOTP(credentials) {
     const spinner = this.loadingController.create({
-      message: 'Generating OTP',
+      message: this.translate.instant('LOADING.Generating_OTP'),
       spinner: 'lines-small'
     });
     spinner.then(spin => spin.present());
@@ -78,7 +81,7 @@ export class AuthenticateService {
   register(credentials) {
     // spinner for validation of OTP and registration
     const spinner = this.loadingController.create({
-      message: 'Signing...',
+      message: this.translate.instant('LOADING.Signing'),
       spinner: 'lines-small'
     });
     spinner.then(spin => spin.present());
@@ -110,7 +113,7 @@ export class AuthenticateService {
   login(credentials) {
     // loader for login
     const loading = this.loadingController.create({
-      message: 'Logging',
+      message: this.translate.instant('LOADING.Logging'),
       spinner: 'lines-small'
     });
     loading.then(spin => spin.present());
@@ -119,7 +122,7 @@ export class AuthenticateService {
         console.log(res);
         // filter required to check the token
         // storing data in local
-        this.storage.set(TOKEN_KEY, res);
+        this.storage.set(TOKEN_KEY, this.encryptDataService.encrypt(res));
         // setting user Authentication to true
         this.userAuthenticationState.next(true);
         // loader dismissal
@@ -129,7 +132,8 @@ export class AuthenticateService {
       catchError(e => {
         console.log(e);
         loading.then(spin => spin.dismiss());
-        this.showAlert(e.error.error ? e.error.error_description : (e.error.isTrusted ? 'Connection Error' : 'You are not a registered user, please Sign up'));
+        this.showAlert(e.error.error ? this.translate.instant('ALERT.User_password_incorrect') : (e.error.isTrusted ?
+          this.translate.instant('ALERT.Connection_Error') : this.translate.instant('ALERT.Not_register_user')));
         throw new Error(e);
       })
     );
@@ -154,7 +158,7 @@ export class AuthenticateService {
   showAlert(msg, header?) {
     const alert = this.alrtController.create({
       message: msg,
-      header: (header ? '' : 'Error'),
+      header: (header ? '' : this.translate.instant('ALERT.Error')),
       buttons: ['OK']
     });
     alert.then(alt => alt.present());
