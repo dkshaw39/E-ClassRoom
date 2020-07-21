@@ -16,7 +16,7 @@
         </ion-card>
       <ion-list>
         <ion-menu-toggle>
-          <ion-item lines="none">
+          <ion-item lines="none" [routerLink]="['settings']" routerLinkActive="router-link-active" >
             <ion-icon slot="start" name="settings-outline"></ion-icon>
             <ion-label>{{'APP.Setting' | translate}}</ion-label>
           </ion-item>

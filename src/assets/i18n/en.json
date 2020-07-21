@@ -38,5 +38,14 @@
     },
     "CLASSROOM": {
         "Classroom": "Classroom"
+    },
+    "SETTING": {
+        "Setting": "Setting",
+        "Change_Password": "change Password",
+        "Old_Password": "Old Password",
+        "New_Password": "New Password",
+        "Confirm_Password": "Confirm Password",
+        "Change": "Change",
+        "Changing": "Changing"
     }
 }

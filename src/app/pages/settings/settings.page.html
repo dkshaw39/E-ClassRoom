@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{'SETTING.Setting' | translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu_id="m1"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="passwordForm" (ngSubmit)="onPasswordChange()">
+  <ion-grid fixed>
+    <ion-row class="ion-padding-bottom">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center ion-text-uppercase">
+        <h6>{{ 'SETTING.Change_Password' | translate}}</h6>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">{{'SETTING.Old_Password' | translate}}</ion-label>
+          <ion-input required formControlName="OldPassword" [type]="passwordType" clearOnEdit="false"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <!-- <ion-item *ngIf="mobile.invalid && mobile.touched" lines="none">
+          <ion-text color="danger" class="form-error">
+            Not a valid mobile number.
+          </ion-text>
+        </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">{{'SETTING.New_Password' | translate}}</ion-label>
+          <ion-input required formControlName="NewPassword" [type]="passwordType" clearOnEdit="false"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <!-- <ion-item *ngIf="password.invalid && password.touched" lines="none">
+          <ion-text color="danger" class="form-error">
+            Not a valid password address.
+          </ion-text>
+        </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-bottom">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-item>
+          <ion-label position="floating">{{'SETTING.Confirm_Password' | translate}}</ion-label>
+          <ion-input required formControlName="ConfirmPassword" [type]="passwordType" clearOnEdit="false"></ion-input>
+          <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>
+        <!-- <ion-item *ngIf="password.invalid && password.touched" lines="none">
+          <ion-text color="danger" class="form-error">
+            Not a valid password address.
+          </ion-text>
+        </ion-item> -->
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-padding-top">
+      <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+        <ion-button color="blackwhite" type="submit"  expand="block" shape="round" [disabled]="passwordForm.invalid">
+          {{'SETTING.Change' | translate}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</form>
+</ion-content>

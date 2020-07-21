@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -21,6 +21,7 @@ import { ModalCreatenotesPageModule } from './pages/modal-createnotes/modal-crea
 import { ModalScheduleexamPageModule } from './pages/modal-scheduleexam/modal-scheduleexam.module';
 import { POPOVERClassroomdetailsPageModule } from './pages/popover-classroomdetails/popover-classroomdetails.module';
 import { MODALAddclassroomPageModule } from './pages/modal-addclassroom/modal-addclassroom.module';
+import { InterceptorService } from './services/interceptor.service';
 
 // provide a local folder in factory for translateModule
 export function createTranslateLoader(http: HttpClient) {
@@ -56,10 +57,8 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
-    {
-      provide: RouteReuseStrategy,
-      useClass: IonicRouteStrategy,
-    },
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
 })

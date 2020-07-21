@@ -15,6 +15,7 @@ const TOKEN_KEY = 'ACCESS_TOKEN';
 })
 export class AuthenticateService {
 
+  authorizationString = '';
   url = environment.url;
   public userID = null;
   private userAuthenticationState = new BehaviorSubject(false);
@@ -24,6 +25,9 @@ export class AuthenticateService {
     })
   };
 
+
+// Constructor
+
   constructor(private storage: Storage, private platform: Platform, private http: HttpClient,
               private alrtController: AlertController, private loadingController: LoadingController,
               private encryptDataService: EncryptDataService, private translate: TranslateService) {
@@ -32,6 +36,40 @@ export class AuthenticateService {
     });
   }
 
+
+  // Authentication observable to impact all pages(specially App.page.ts)
+  getUserAuthenticationObservable() {
+    return this.userAuthenticationState;
+  }
+  // getter for authentication for AuthGuard
+  getUserAuthentication() {
+    return this.userAuthenticationState.value;
+  }
+
+// user validation header
+
+  authenticateHeader(){
+    let authorizationString = '';
+    this.storage.get(TOKEN_KEY).then(encryptToken => {
+        const token = this.encryptDataService.decrypt(encryptToken);
+        console.log(token);
+        console.log(token.access_token);
+        console.log(token.token_type);
+        authorizationString = 'bearer ' + token.access_token;
+        console.log(authorizationString);
+        console.log({headers :  new HttpHeaders().set('Authorization', authorizationString)});
+    });
+    const reqOpts = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization:  authorizationString
+      })
+    };
+    return reqOpts;
+  }
+
+  // AutoLogin
+
   autoLogin() {
     this.storage.get(TOKEN_KEY).then(encryptToken => {
       if ( encryptToken ) {
@@ -39,12 +77,17 @@ export class AuthenticateService {
         if (new Date() <= new Date(token['.expires'])) {
           this.userAuthenticationState.next(true);
           this.userID = token.userName;
+          this.authorizationString = 'bearer ' + token.access_token;
         }
       } else {
         this.logout();
       }
     });
   }
+
+
+
+  // OTP Request
 
   requestOTP(credentials) {
     const spinner = this.loadingController.create({
@@ -67,17 +110,12 @@ export class AuthenticateService {
     );
     return response;
   }
-  // register(credentials){
-  //   return this.http.post(this.url.concat('/api/Account/Register'), credentials).pipe(
-  //       catchError(e => {
-  //       console.log(e);
-  //       this.showAlert(e.error.Message + ' ' + e.statusText);
-  //       throw new Error(e);
-  //     })
-  //   );
-  // }
+
+
+
 
   // to register the user once he get the OTP
+
   register(credentials) {
     // spinner for validation of OTP and registration
     const spinner = this.loadingController.create({
@@ -109,7 +147,12 @@ export class AuthenticateService {
     return response;
   }
 
+
+
+
+
   // user login method
+
   login(credentials) {
     // loader for login
     const loading = this.loadingController.create({
@@ -140,20 +183,76 @@ export class AuthenticateService {
     return response;
   }
 
+
+
+
+  // Logout
+
   logout() {
     // setting user Authentication to false
     this.storage.remove(TOKEN_KEY).then(() => {
       this.userAuthenticationState.next(false);
     });
   }
-  // Authentication observable to impact all pages(specially App.page.ts)
-  getUserAuthenticationObservable() {
-    return this.userAuthenticationState;
+
+
+  changePassword(details){
+    console.log(details);
+    // console.log(this.authorizationString);
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/x-www-form-urlencoded',
+    //   Accept: '*/*',
+    //   Authorization: this.authorizationString
+    // });
+    // headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    // headers.set('Accept', '*/*');
+    // headers.set('Accept-Encoding', 'gzip, deflate, br');
+    // headers.set('Connection', 'keep-alive');
+    // headers.set('Authorization', this.authorizationString);
+    // console.log(headers);
+    const response = this.http.post(this.url.concat('/api/Account/ChangePassword'), details)
+                        .pipe(take(1), tap(res => {
+            console.log('Response: ' + res);
+          }),
+          catchError(e => {
+            console.log(e);
+            throw new Error(e);
+          })
+        );
+    return response;
   }
-  // getter for authentication for AuthGuard
-  getUserAuthentication() {
-    return this.userAuthenticationState.value;
+
+  changePassword1(details){
+    // loader
+    const loading = this.loadingController.create({
+      message: this.translate.instant('SETTINGS.Changing'),
+      spinner: 'lines-small'
+    });
+    loading.then(spin => spin.present());
+    // login post request
+    const response = this.http.post(this.url.concat('/api/Account/ChangePassword'), details, this.authenticateHeader())
+                    .pipe(take(1), tap(res => {
+        console.log('Response: ' + res);
+        loading.then(spin => spin.dismiss());
+        this.showAlert('Password changed successfully', 'Message');
+      }),
+      // error due to any issue like network etc
+      catchError(e => {
+        console.log(e);
+        loading.then(spin => spin.dismiss());
+        if (e.ModelState){
+          this.showAlert( JSON.stringify(e.ModelState), 'Error');
+        } else {
+          this.showAlert( JSON.stringify(e.statusText), 'Error');
+          // this.logout();
+        }
+        throw new Error(e);
+      })
+    );
+    return response;
   }
+
+
   // showing Alert message for any operation
   showAlert(msg, header?) {
     const alert = this.alrtController.create({
