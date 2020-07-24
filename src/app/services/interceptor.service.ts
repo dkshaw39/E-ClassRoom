@@ -30,16 +30,25 @@ export class InterceptorService implements HttpInterceptor {
     return from(access_token).pipe(
       mergeMap((token) => {
         const cloneReq = this.addToken(req, token);
-        console.log(cloneReq.headers);
         return next.handle(cloneReq);
       }),
       catchError((error) => {
         console.log(error);
-        this.alertController.create({
-          header: 'Error',
-          message: JSON.stringify(error),
-          buttons: ['OK']
-        }).then(alert => alert.present());
+        if (error.status === 401) {
+          this.showAlert('Unauthorized User');
+        } else if (error.status === 400) {
+          this.showAlert(
+            error.error.ModelState
+              ? JSON.stringify(error.error.ModelState)
+              : (
+                error.error.error_description
+                ? error.error.error_description
+                : error.error.Message
+              )
+              );
+        } else {
+          this.showAlert(error.statusText);
+        }
         throw new Error(error);
       })
     );
@@ -49,15 +58,24 @@ export class InterceptorService implements HttpInterceptor {
     if (encryptedToken) {
       const token = this.encryptDataService.decrypt(encryptedToken)
         .access_token;
-      console.log(token);
       const clone = request.clone({
         setHeaders: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
           Authorization: 'bearer ' + token,
         },
       });
       return clone;
     }
     return request;
+  }
+
+  private showAlert(msg) {
+    const alert = this.alertController.create({
+      message: msg,
+      header: 'Error',
+      buttons: ['OK'],
+    });
+    alert.then((alt) => alt.present());
   }
 }

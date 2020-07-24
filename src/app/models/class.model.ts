@@ -1,10 +1,15 @@
 import { Teacher } from './teacher.model';
 import { Student } from './student.mode';
-export class Class{
-    classroomcode: string;
-    classname: string;
-    section: string;
-    students: Student[];
-    teachers: Teacher[];
-    subjects: string[];
+export class Class {
+  constructor(
+    public Id: string,
+    public Name: string,
+    public Section: string,
+    public Institute: string,
+    public TotalStudents: number,
+    public TotalTeachers: number,
+    public TotalSubjects: number,
+    public Subjects?: string[]
+    // public subjects: string[]
+  ) {}
 }

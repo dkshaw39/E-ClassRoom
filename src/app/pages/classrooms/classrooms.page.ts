@@ -1,6 +1,6 @@
 import { Class } from './../../models/class.model';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ClassService } from 'src/app/services/class.service';
+import { ClassRoomService } from 'src/app/services/classroom.service';
 import { ActionSheetController, ModalController, LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import { MODALAddclassroomPage } from '../modal-addclassroom/modal-addclassroom.page';
 import { Subscription } from 'rxjs';
@@ -13,11 +13,11 @@ import { Router } from '@angular/router';
 })
 export class ClassroomsPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  classes: Class[];
+  classes: Class[] = [];
   private clsSubscription: Subscription;
 
   constructor(
-    private classService: ClassService,
+    private classroomService: ClassRoomService,
     private actionctrl: ActionSheetController,
     private modalController: ModalController,
     private router: Router,
@@ -25,23 +25,14 @@ export class ClassroomsPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.clsSubscription = this.classService
-      .getAllClass()
-      .subscribe((clses) => {
-        this.classes = clses;
-      });
+    this.classroomService.loadClass().subscribe(res => {
+      this.clsSubscription = this.classroomService
+        .getAllClass()
+        .subscribe((clses) => {
+          this.classes = clses;
+        });
+    });
   }
-  // async ionViewDidEnter(){
-  //   const loading = await this.loadingController.create({
-  //     message: 'Loading',
-  //     duration: 2000,
-  //     spinner: 'lines-small'
-  //   });
-  //   loading.present();
-  //   setTimeout(() => {
-  //     loading.dismiss();
-  //   }, 2000);
-  // }
 
   ngOnDestroy() {
     this.clsSubscription.unsubscribe();
@@ -75,7 +66,7 @@ export class ClassroomsPage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: MODALAddclassroomPage,
       componentProps: this.classes,
-      cssClass: 'float-modal',
+      // cssClass: 'float-modal',
     });
     modal.present();
   }

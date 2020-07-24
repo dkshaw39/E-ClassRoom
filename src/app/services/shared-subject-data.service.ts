@@ -14,8 +14,8 @@ export class SharedSubjectDataService {
   classroomcode = this.clsroomcode.asObservable();
   subject = this.sub.asObservable();
 
-  setData(classroomcode: string, subject: string){
-    this.clsroomcode.next(classroomcode);
+  setData(Id: string, subject: string){
+    this.clsroomcode.next(Id);
     this.sub.next(subject);
   }
 

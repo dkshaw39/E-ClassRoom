@@ -1,4 +1,4 @@
-import { ClassService } from 'src/app/services/class.service';
+import { ClassRoomService } from 'src/app/services/classroom.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class MODALAddclassroomPage implements OnInit {
 
-  constructor(private modalController: ModalController, private formBuilder: FormBuilder,private classService: ClassService) { }
+  constructor(private modalController: ModalController, private formBuilder: FormBuilder,private classroomService: ClassRoomService) { }
 
   get class(){
     return this.classForm.get('class');
@@ -36,7 +36,7 @@ export class MODALAddclassroomPage implements OnInit {
     this.modalController.dismiss();
   }
   onSubmit(){
-    this.classService.add(this.classcode.value, this.class.value, this.section.value);
+    this.classroomService.add(this.classcode.value, this.class.value, this.section.value);
     this.closeModal();
   }
 }

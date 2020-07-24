@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
@@ -8,8 +9,11 @@ import { Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-
-  constructor(private formBuilder: FormBuilder, private authenticate: AuthenticateService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authenticate: AuthenticateService,
+    private router: Router
+  ) {}
 
   get OldPassword() {
     return this.passwordForm.get('OldPassword');
@@ -40,15 +44,14 @@ export class SettingsPage implements OnInit {
         : 'eye-off-outline';
   }
 
-  ngOnInit() {
-  }
-
-
-
+  ngOnInit() {}
 
   // Password Change
-  onPasswordChange(){
-    this.authenticate.changePassword(this.passwordForm.value).subscribe();
+  onPasswordChange() {
+    this.authenticate
+      .changePassword(this.passwordForm.value)
+      .subscribe((res) => {
+        this.router.navigate(['']);
+      });
   }
-
 }
