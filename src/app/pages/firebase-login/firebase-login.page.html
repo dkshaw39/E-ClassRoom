@@ -1,0 +1,81 @@
+<ion-content [fullscreen]="true">
+  <ion-slides #slides pager="true" [options]="slideOptions">
+    <ion-slide class="ion-no-padding">
+      <form [formGroup]="mobileForm" (ngSubmit)="requestOTP()">
+        <ion-grid fixed style="padding-bottom: 20%;">
+          <ion-row class="ion-padding">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-padding ion-text-center">
+              <h4 class="ion-padding">CLASSROOM</h4>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-bottom">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+              <ion-item>
+                <ion-label position="floating">Enter Mobile Number</ion-label>
+                <ion-input required formControlName="MobileNumber" type="number" ></ion-input>
+              </ion-item>
+              <!-- <ion-item *ngIf="mobile.invalid && mobile.touched" lines="none">
+              <ion-text color="danger" class="form-error">
+                Not a valid mobile number.
+              </ion-text>
+            </ion-item> -->
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-top">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+              <ion-button color="blackwhite" type="submit" shape="round" [disabled]="mobileForm.invalid">
+                Request OTP
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <ion-grid fixed>
+          <ion-row class="ion-padding">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+              <h4> CLASSROOM </h4>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+              <ion-item class="ion-no-padding">
+                <ion-icon slot="end" name="create-outline" (click)="editMobile()"></ion-icon>
+                <ion-label> Mob: {{ MobileNumber.value }}</ion-label>
+              </ion-item>
+              <!-- <ion-item *ngIf="name && name" lines="none">
+              <ion-text color="danger" class="form-error">
+                Not a valid name.
+              </ion-text>
+            </ion-item> -->
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+              <ion-item>
+                <ion-label position="floating">OTP</ion-label>
+                <ion-input required formControlName="OTP" type="text"></ion-input>
+              </ion-item>
+              <!-- <ion-item *ngIf="name && name" lines="none">
+              <ion-text color="danger" class="form-error">
+                Not a valid name.
+              </ion-text>
+            </ion-item> -->
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col size="8" offset="2" size-lg="4" offset-lg="4" class="ion-text-center">
+              <ion-button color="blackwhite" type="submit" [disabled]="signInForm.invalid" expand="block"
+                shape="round">
+                Sign In
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

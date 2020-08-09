@@ -25,6 +25,7 @@
         "Choose_Language": "Choose Language"
     },
     "SIGNUP": {
+        "Sign_In": "Sign In",
         "Sign_Up": "Sign Up",
         "Enter_Mobile_Number": "Enter Mobile Number",
         "Request_OTP": "Request OTP",

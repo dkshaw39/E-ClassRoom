@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ClassroomsPage implements OnInit, OnDestroy {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   classes: Class[] = [];
+  institutes: string[] = [];
   private clsSubscription: Subscription;
 
   constructor(
@@ -30,6 +31,11 @@ export class ClassroomsPage implements OnInit, OnDestroy {
         .getAllClass()
         .subscribe((clses) => {
           this.classes = clses;
+          this.classes.forEach(cls => {
+            if (!this.institutes.find(element => element === cls.Institute)) {
+              this.institutes.push(cls.Institute);
+            }
+          });
         });
     });
   }

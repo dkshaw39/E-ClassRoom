@@ -2,6 +2,9 @@ import { ClassRoomService } from 'src/app/services/classroom.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
+export class ClassRoom{
+  constructor( private Institute: string, private Name: string, private Section: string){}
+}
 
 @Component({
   selector: 'app-modal-addclassroom',
@@ -12,22 +15,22 @@ export class MODALAddclassroomPage implements OnInit {
 
   constructor(private modalController: ModalController, private formBuilder: FormBuilder,private classroomService: ClassRoomService) { }
 
-  get class(){
-    return this.classForm.get('class');
+  get Name(){
+    return this.classForm.get('Name');
   }
 
-  get section(){
-    return this.classForm.get('section');
+  get Section(){
+    return this.classForm.get('Section');
   }
 
-  get classcode(){
-    return this.classForm.get('classcode');
+  get Institute(){
+    return this.classForm.get('Institute');
   }
 
   classForm = this.formBuilder.group({
-    class: ['', [Validators.required]],
-    section: ['', [Validators.required, Validators.minLength(6)]],
-    classcode: ['', [Validators.required, Validators.minLength(6)]]
+    Institute: ['', [Validators.required]],
+    Name: ['', [Validators.required]],
+    Section: ['', [Validators.required]]
   });
 
   ngOnInit() {
@@ -36,7 +39,7 @@ export class MODALAddclassroomPage implements OnInit {
     this.modalController.dismiss();
   }
   onSubmit(){
-    this.classroomService.add(this.classcode.value, this.class.value, this.section.value);
+    this.classroomService.add(this.Institute.value, this.Name.value, this.Section.value);
     this.closeModal();
   }
 }

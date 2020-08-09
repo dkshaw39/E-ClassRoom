@@ -56,8 +56,8 @@ export class InterceptorService implements HttpInterceptor {
 
   private addToken(request: HttpRequest<any>, encryptedToken) {
     if (encryptedToken) {
-      const token = this.encryptDataService.decrypt(encryptedToken)
-        .access_token;
+      // const token = this.encryptDataService.decrypt(encryptedToken).access_token;
+      const token = 'H_yAgQhUa3PFfQoDhi3Iu-LPELiHq5LOqbkYl44voD6yp0yjfsfE8Wbn-T26mqgb1jqCuJiVaoE9qpblbVDxQdactcl84N3-rhzOnA3LrGSO8TdjCwSX0q35j0CKswWoOH5-eOsFWH9wIwQy9DlLRBBZKMOTsE_99PE9fLuMX2Sghztj4KZO2swDTERTt4xV_-eJczcmctDsp83JJ-CV5xwmcEDQNcxxmLSFwDg9eTCEZFe3wEqibqjPCLdfD1r8-QjXeZ2wBCLgsC0UGq-PCxxBC5XzcdaZ22vTY5dLUxx4mE1p3O6jPnWl--BaV2nk4Q76lcuBIYNo_D9Uv28VedCDrdy_VHsnk0Cziuj6mdUmdOc5eCgBF5y8qBGhbjuBfJ7mTS_Kmtv2Ohz5IYPvw1xt3EDwtMvlfm_hCkqszC83FLVWXCU8wjISnlRJ9_7XusY_t7k7R5AzaECEHur-Rf_qT3ajDGwb34duT0czzfOcxE-D_R-sRT5YfqfBRNukXG5Io_2alvbwL4-CJv1vIeUE2hszeXTpilfEjcEZSrQ';
       const clone = request.clone({
         setHeaders: {
           // 'Content-Type': 'application/x-www-form-urlencoded',

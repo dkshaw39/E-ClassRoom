@@ -14,6 +14,11 @@ import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalCreateassignmentPageModule } from './pages/modal-createassignment/modal-createassignment.module';
@@ -22,6 +27,8 @@ import { ModalScheduleexamPageModule } from './pages/modal-scheduleexam/modal-sc
 import { POPOVERClassroomdetailsPageModule } from './pages/popover-classroomdetails/popover-classroomdetails.module';
 import { MODALAddclassroomPageModule } from './pages/modal-addclassroom/modal-addclassroom.module';
 import { InterceptorService } from './services/interceptor.service';
+import { from } from 'rxjs';
+import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 
 // provide a local folder in factory for translateModule
 export function createTranslateLoader(http: HttpClient) {
@@ -52,11 +59,14 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebase, 'test'),
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    FirebaseAuthentication,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
   ],

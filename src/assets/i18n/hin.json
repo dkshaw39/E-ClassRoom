@@ -26,6 +26,7 @@
         "Choose_Language": "भाषा चुनें"
     },
     "SIGNUP": {
+        "Sign_In": "साइन",
         "Sign_Up": "साइन अप करें",
         "Enter_Mobile_Number": "मोबाइल नंबर दर्ज करें",
         "Request_OTP": "OTP का अनुरोध करें",

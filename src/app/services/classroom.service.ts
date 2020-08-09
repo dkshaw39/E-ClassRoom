@@ -74,7 +74,6 @@ public getClass(clscode: string){
     this.classes.pipe(take(1)).subscribe(cls => {
       this.classes.next(cls.concat(newcls));
     });
-    console.log(this.classes.value);
-    
+    console.log(newcls);
   }
 }

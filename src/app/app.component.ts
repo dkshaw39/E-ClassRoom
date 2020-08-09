@@ -1,3 +1,4 @@
+import { AngularfireService } from './services/angularfire.service';
 import { LanguageService } from './services/language.service';
 import { Component,  ViewChild} from '@angular/core';
 
@@ -28,17 +29,20 @@ export class AppComponent {
     private alertController: AlertController,
     private router: Router,
     public authenticate: AuthenticateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private angularfireService: AngularfireService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if(this.platform.is('cordova')){
       this.statusBar.styleDefault();
-      // status bar color
+      // status bar color 
       this.statusBar.backgroundColorByHexString('#e3e3e3');
       this.splashScreen.hide();
+      }
       // closing the app by pressing back button
       this.platform.backButton.subscribeWithPriority(0, async () => {
         if ( this.router.url === '' || this.router.url === '/' ||
@@ -68,11 +72,28 @@ export class AppComponent {
       });
     });
     // after checking stored token , if the user is authenticate then move to root page else login page
-    this.authenticate.getUserAuthenticationObservable().subscribe( status => {
-      if (status){
-        this.router.navigate(['']);
-      }else {
-        this.router.navigate(['user']);
+    // this.authenticate.getUserAuthenticationObservable().subscribe( status => {
+    //   if (status){
+    //     this.router.navigate(['']);
+    //   }else {
+    //     this.router.navigate(['angular-fire-login']);
+    //   }
+    // });
+    // this.angularfireService.isLogged.subscribe( status => {
+    //   const URL = this.router.url === '/angular-fire-login' ? '/' : this.router.url;
+    //   console.log(status);
+    //   if (status) {
+    //     this.router.navigateByUrl(URL);
+    //   } else {
+    //     this.router.navigate(['angular-fire-login']);
+    //   }
+    // });
+    this.angularfireService.userStatus().subscribe( user => {
+      if (user) {
+        const URL = this.router.url === '/angular-fire-login' ? '/' : this.router.url;
+        this.router.navigateByUrl(URL);
+      } else {
+        this.router.navigate(['angular-fire-login']);
       }
     });
     this.languageService.setInitialLanguage();
@@ -85,6 +106,6 @@ export class AppComponent {
   }
 
   logout_btn(){
-    this.authenticate.logout();
+    this.angularfireService.logout();
   }
 }
