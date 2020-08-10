@@ -25,33 +25,35 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const access_token = this.storage.get('ACCESS_TOKEN');
+      const cloneReq = this.addToken(req, 'dummy');
+      return next.handle(cloneReq);
+    // const access_token = this.storage.get('ACCESS_TOKEN');
 
-    return from(access_token).pipe(
-      mergeMap((token) => {
-        const cloneReq = this.addToken(req, token);
-        return next.handle(cloneReq);
-      }),
-      catchError((error) => {
-        console.log(error);
-        if (error.status === 401) {
-          this.showAlert('Unauthorized User');
-        } else if (error.status === 400) {
-          this.showAlert(
-            error.error.ModelState
-              ? JSON.stringify(error.error.ModelState)
-              : (
-                error.error.error_description
-                ? error.error.error_description
-                : error.error.Message
-              )
-              );
-        } else {
-          this.showAlert(error.statusText);
-        }
-        throw new Error(error);
-      })
-    );
+    // return from(access_token).pipe(
+    //   mergeMap((token) => {
+    //     const cloneReq = this.addToken(req, token);
+    //     return next.handle(cloneReq);
+    //   }),
+    //   catchError((error) => {
+    //     console.log(error);
+    //     if (error.status === 401) {
+    //       this.showAlert('Unauthorized User');
+    //     } else if (error.status === 400) {
+    //       this.showAlert(
+    //         error.error.ModelState
+    //           ? JSON.stringify(error.error.ModelState)
+    //           : (
+    //             error.error.error_description
+    //             ? error.error.error_description
+    //             : error.error.Message
+    //           )
+    //           );
+    //     } else {
+    //       this.showAlert(error.statusText);
+    //     }
+    //     throw new Error(error);
+    //   })
+    // );
   }
 
   private addToken(request: HttpRequest<any>, encryptedToken) {
